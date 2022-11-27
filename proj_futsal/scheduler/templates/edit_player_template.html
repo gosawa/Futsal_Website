@@ -1,0 +1,11 @@
+<form id="editform" action="" method="POST">
+    {% csrf_token %}
+    <div class="modal-body">
+    {{form.as_p}}
+    <input type="hidden" id="id" name="id" value={{event_key}}>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-primary" type="submit">Save changes</button>
+    </div>
+</form> 

@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8", name="viewport" content="width=device-width, initial-scale=1" >
+  <title>scheduler</title>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" >
+</head>
+
+<body>
+  <div class="container"></div>
+    <nav class="navbar navbar-light navbar-expand-md navbar-fixed-top navigation-clean-button" style="background: rgb(34, 34, 34);border-radius: 20;border-top-left-radius: 20;border-top-right-radius: 20;border-bottom-right-radius: 20;border-bottom-left-radius: 20;border-style: none;padding-top: 0;padding-bottom: 10px;">
+        <div class="container"><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div><a class="navbar-brand" href="#" ><span style="color:white; margin-left:0px;">Futsal Scheduler </span></a></div>
+            <div id="navcol-1" class="collapse navbar-collapse" style="color: rgb(255,255,255);">
+                <ul class="navbar-nav nav-right">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'scheduler:home' %}" style="color: rgba(224,217,217,0.9);">home </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+      {% block content %} {% endblock %}
+    <footer id="footer" style="width:100">
+        <div style="background: black;text-align: center;margin: 0px; padding: 10px;"> 
+            <p style="color: grey;">Copyright (c) 2022 facility dev</p>
+        </div>
+    </footer>
+  </div>
+  </body>
+  <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+</html>
+
+
+
+
+

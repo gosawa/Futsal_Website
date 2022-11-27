@@ -1,0 +1,17 @@
+{% extends 'scheduler/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+        {% for item in eventlist %}
+            <tr>
+                <td>{{ item.event_date|date:'Y/M/d' }}</td>
+                <td>{{item.event_name}} </td>
+                <td><a href="/scheduler/event/{{item.id}}">View</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
