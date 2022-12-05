@@ -39,7 +39,7 @@
 
 
     <div class="table-responsive">
-        <h3>Current Confirmed: {{event_count}}</h3>
+        <h4>Current Confirmed: {{event_count}}</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -47,6 +47,7 @@
                     <th>Name</th>
                     <th>Attend?</th>
                     <th>Player?</th>
+					<th></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +55,9 @@
                 <tr>
                     <td>{{player.N}}</td>
                     <td>{{player.name}}</td>
-                    <td>{{player.attendance_status}}</td>
-                    <td>{{player.player_status}}</td>
-                    <!-- <td><a class="btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#modaledit">Edit</a></div> -->
+                    <td>{{player.get_attendance_status_display}}</td>
+                    <td>{{player.get_player_status_display}}</td>
+                    <td><a href="/scheduler/edit/{{player.id}}/" class="btn btn-primary btn-lg" type="button">Edit/Delete</a></div>
                 </tr>
                 {% endfor %}
             </tbody>

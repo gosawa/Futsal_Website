@@ -1,3 +1,7 @@
+{% extends 'scheduler/base.html' %}
+
+{% block content %}
+
 <form id="editform" action="" method="POST">
     {% csrf_token %}
     <div class="modal-body">
@@ -7,5 +11,8 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button class="btn btn-primary" type="submit">Save changes</button>
+		<a href="/scheduler/delete/{{player.id}}/" class="btn btn-primary" type="button">Delete</a>
     </div>
 </form> 
+
+{% endblock %}

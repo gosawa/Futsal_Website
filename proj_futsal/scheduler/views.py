@@ -5,7 +5,7 @@ from django.shortcuts import redirect, get_object_or_404
 from .forms import RegisterPlayerForm, EditPlayerForm
 import datetime 
 from django.db.models.expressions import RawSQL
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 
@@ -53,10 +53,16 @@ def register(request):
              
     return redirect(f'event/'+key+'/')
 
-# class EditPlayer(UpdateView):
-#     model = Player
-#     form_class = EditPlayerForm
-#     template_name = 'edit_player_template.html'
+class EditPlayer(UpdateView):
+    model = Player
+    form_class = EditPlayerForm
+    template_name = 'scheduler/edit_player_template.html'
+
+class DeletePlayer(DeleteView):
+	model = Player
+	success_url = '/scheduler/home'
+	template_name = 'scheduler/confirmDelete.html'
+
     
 # def editPlayer(request, playerid=None):
 #     instance = get_object_or_404(Player, id=playerid)
