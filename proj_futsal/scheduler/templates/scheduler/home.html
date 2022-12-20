@@ -6,8 +6,8 @@
         <table class="table">
         {% for item in eventlist %}
             <tr>
-                <td>{{ item.event_date|date:'Y/M/d' }}</td>
                 <td><a href="/scheduler/event/{{item.id}}">{{item.event_name}}</a></td>
+                <td>{{ item.event_date|date:'Y/M/d' }}</td>
             </tr>
         {% endfor %}
         </table>

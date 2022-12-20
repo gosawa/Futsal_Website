@@ -19,7 +19,7 @@ class Event(models.Model):
     class Meta:
         ordering = ['event_date', 'event_start']
     def __str__(self):
-        return self.event_name
+        return str(self.id)
 
 
 class Player(models.Model):

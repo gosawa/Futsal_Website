@@ -6,7 +6,7 @@ from .forms import RegisterPlayerForm, EditPlayerForm
 import datetime 
 from django.db.models.expressions import RawSQL
 from django.views.generic.edit import UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
 def home(request):
@@ -18,7 +18,6 @@ def event(request, pk):
     dateformat = "%y/%m/%d"
     timeformat = "%H:%M"
     thisEvent=Event.objects.filter(id = pk).values()[0]
-    event_key = thisEvent['id']
     event_name = thisEvent['event_name']
     event_date = datetime.datetime.strftime(thisEvent['event_date'], dateformat)
     event_start = datetime.time.strftime(thisEvent['event_start'], timeformat)
@@ -28,16 +27,13 @@ def event(request, pk):
 
     params = {
         'event_count': Player.objects.filter(event=pk).filter(attendance_status = 'CO').count(),
-        'event_key':event_key,
         'event_name':event_name,
         'event_date':event_date,
         'event_start': event_start,
         'event_end': event_end,
         'event_comment':event_comment,
         'event_status':event_status,
-        'event_id' : id,
-        'players' : Player.objects.filter(event = pk).annotate\
-            (N=RawSQL('row_number() over ()', [])).values(),
+        'players' : Player.objects.filter(event = pk).annotate(N=RawSQL('row_number() over ()', [])).values(),
         'form' : RegisterPlayerForm(initial={'event':pk}),
         }
     return render(request, 'scheduler/event.html', params)
@@ -47,7 +43,7 @@ def register(request):
         form = RegisterPlayerForm(request.POST)
         if form.is_valid():
             form.save()
-        key = request.POST['id']
+        key = request.POST['event']
     else:
         print('something went wrong')
              
@@ -58,20 +54,17 @@ class EditPlayer(UpdateView):
     form_class = EditPlayerForm
     template_name = 'scheduler/edit_player_template.html'
 
+    def get_success_url(self, **kwargs):
+        event_key = self.request.POST['event']
+        return ('/scheduler/event/'+event_key+'/')
+
 class DeletePlayer(DeleteView):
-	model = Player
-	success_url = '/scheduler/home'
-	template_name = 'scheduler/confirmDelete.html'
+    model = Player
+    template_name = 'scheduler/confirmDelete.html'
+
+    def get_success_url(self, **kwargs):
+        event_key = self.request.POST['event']
+        return ('/scheduler/event/'+event_key+'/')
 
     
-# def editPlayer(request, playerid=None):
-#     instance = get_object_or_404(Player, id=playerid)
-#     form2 = EditPlayerForm(request.POST or None, instance=instance)
-#     if form2.is_valid():
-#         instance = form2.save(commit=False)
-#         instance.save()
-#     context = {
-#         "form":form,
-#         "instance":instance
-#     }
-#     return render('edit_player_template.html', context)
+    
